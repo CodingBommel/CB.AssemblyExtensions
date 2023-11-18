@@ -10,7 +10,7 @@ namespace CB.EmbeddedResourceHelper
     {
         public static string ReadAllTextFromEmbeddedFile(this Assembly assembly, string resourceName)
         {
-            using (var resourceStream = GetResourceStream(assembly, resourceName))
+            using (var resourceStream = GetStreamFromEmbeddedFile(assembly, resourceName))
             using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
             {
                 var template = reader.ReadToEnd();
@@ -18,7 +18,7 @@ namespace CB.EmbeddedResourceHelper
             }
         }
 
-        private static Stream GetResourceStream(Assembly assembly, string resourceName)
+        public static Stream GetStreamFromEmbeddedFile(Assembly assembly, string resourceName)
         {
             var resourcename = assembly.GetManifestResourceNames().FirstOrDefault(n => n.EndsWith(resourceName));
             
